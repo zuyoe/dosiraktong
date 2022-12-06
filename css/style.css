@@ -74,7 +74,6 @@ body {
   transition: all 0.5s;
 }
 
-
 .logo {
   position: relative;
   width: 125px;
@@ -93,13 +92,85 @@ body {
   background: url("../images/logo.png") no-repeat center;
   background-size: cover;
 }
+.header:hover .gnb a {
+  color: #222 !important;
+  line-height: 80px !important;
+}
+.header:hover .gnb a span::after {
+  background: #222 !important;
+}
 
 .nav {
   display: block;
-  width: 400px;
-  height: 80px;
-  background: rebeccapurple;
 }
+
+.gnb {
+  display: flex;
+  margin-right: -34px;
+  transition: all 0.5s;
+}
+.gnb > li {
+}
+.gnb > li > a {
+  display: block;
+  /* 세로중앙 및 높이 한번 */
+  line-height: 100px;
+
+  font-size: 17px;
+  font-weight: 500;
+  color: #fff;
+  padding: 0 34px;
+  transition: line-height 0.5s, padding 0.5s;
+}
+.gnb > li > a > span {
+  position: relative;
+}
+.gnb > li > a > span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+
+  width: 0%;
+  opacity: 0;
+  height: 2px;
+  background: #fff;
+
+  transition: width 0.5s, opacity 0.5s;
+}
+.gnb > li > a:hover > span::after {
+  opacity: 1;
+  width: 100%;
+}
+
+@media screen and (max-width: 1280px) {
+  .header {
+    padding: 0 30px;
+  }
+  .logo {
+    width: 150px;
+  }
+  .gnb {
+    /* margin-right: -34px  였는데 줄어서 */
+    margin-right: -26px;
+  }
+  .gnb > li > a {
+    /* padding: -34px  였는데 줄어서 */
+    padding: 0 26px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .logo {
+    width: 120px;
+  }
+  .header {
+    height: 70px;
+  }
+  .gnb {
+    display: none;
+  }
+}
+
 /* 비주얼 */
 .visual {
   position: relative;
