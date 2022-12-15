@@ -92,5 +92,21 @@ window.onload = function () {
     }
   });
   // 비주얼 슬라이드
-  const swiper = new Swiper(".sw-visual", {});
+  const swiper = new Swiper(".sw-visual", {
+     effect: "fade",
+    //  fadeEffect: {
+    //   crossFade: true
+    // },
+    loop: true,
+    spped: 1000,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+      
+    },
+    navigation: {
+      nextEl: ".sw-visual-next",
+      prevEl: ".sw-visual-prev",
+    },
+  });
 };
