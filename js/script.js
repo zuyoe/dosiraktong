@@ -49,9 +49,11 @@ window.onload = function () {
       // 모바일 메뉴 숨기기
       navMb.classList.remove("active");
       if (scy > 0) {
+        // 스크롤이 되었다면
         header.classList.add("active");
         mbt.classList.add("active");
       } else {
+        // 스크롤이 안된 상태라면
         header.classList.remove("active");
         mbt.classList.remove("active");
       }
@@ -92,21 +94,71 @@ window.onload = function () {
     }
   });
   // 비주얼 슬라이드
+  // 슬라이드 개수 만큼 li 를 생성하기
+  const swSlideCount = document.querySelectorAll(
+    ".sw-visual .swiper-slide"
+  ).length;
+  // li 태그 출력 장소 저장
+  const swSlidePgUl = document.querySelector(".sw-visual-pg-list");
+  let swVisualHtml = ``;
+  for (let i = 0; i < swSlideCount; i++) {
+    swVisualHtml = swVisualHtml + `<li>${i + 1}</li>`;
+  }
+  swSlidePgUl.innerHTML = swVisualHtml;
+
+  // 페이지네이션 관련
+  const swViusalPgLi = document.querySelectorAll(".sw-visual-pg-list > li");
+
+  // console.log(swViusalPgLi);
   const swiper = new Swiper(".sw-visual", {
-     effect: "fade",
-    //  fadeEffect: {
-    //   crossFade: true
+    effect: "fade",
+    // fadeEffect: {
+    //   crossFade: true,
     // },
     loop: true,
-    spped: 1000,
+    speed: 1000,
     autoplay: {
       delay: 2500,
       disableOnInteraction: false,
-      
     },
     navigation: {
       nextEl: ".sw-visual-next",
       prevEl: ".sw-visual-prev",
     },
+  });
+
+  // Swiper 가 최초 실행될 때
+  swViusalPgLi[0].classList.add("active");
+
+  // Swiper 가 바뀔 때 마다 실행
+  swiper.on("slideChange", function () {
+    // realIndex   는 진짜 html 태그의 순서값
+    // activeIndex 는 모션이 되는 요소의 순서값
+    // loop: true 라면 2개가 추가된다.
+    //       자연스러운 모션을 위해서 2개가 추가된다.
+    //       realIndex 와 activeIndex 는 개수가 다르다.
+
+    // loop: false 라면
+    //       realIndex 와 activeIndex 는 개수가 같다.
+
+    console.log("slide changed", swiper.realIndex, swiper.activeIndex);
+    swViusalPgLi.forEach((item, index) => {
+      if (swiper.realIndex === index) {
+        // 같은 순서는 모션을 하라
+        item.classList.add("active");
+      } else {
+        // 다른 순서는 모션을 제거하라.
+        item.classList.remove("active");
+      }
+    });
+  });
+
+  // li 태그를 클릭을 하면 처리하기
+  swViusalPgLi.forEach((item, index) => {
+    item.addEventListener("click", function () {
+      // slideTo를 이용하면 원하는 페이지로 보낼 수 있다.
+      // slideTo(index, speed, runCallbacks)
+      swiper.slideTo(index, 0, false);
+    });
   });
 };
