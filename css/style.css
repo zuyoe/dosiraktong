@@ -295,13 +295,36 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #fff;
 }
 .visual-box .inner h2 {
   line-height: 1.3;
   font-size: 74px;
   color: #fff;
 }
-.visual-box .inner p {
+
+/* 일반 슬라이드 */
+.sw-visual .swiper-slide .visual-box h2 {
+  opacity: 0;
+  transform: translateX(-10%);
+}
+.sw-visual .swiper-slide .visual-box p {
+  opacity: 0;
+  transform: translateY(30px);
+}
+/* 포커스 된 슬라이드 */
+.sw-visual .swiper-slide-active .visual-box h2 {
+  transition: opacity 1s, transform 1s;
+  transform: translateX(0);
+  opacity: 1;
+}
+.sw-visual .swiper-slide-active .visual-box p {
+  transition: opacity 1s 0.5s, transform 1s 0.5s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.visual-box .visual-box .inner p {
   opacity: 0.9;
   margin-top: 10px;
   font-size: 22px;
@@ -332,10 +355,13 @@ body {
 /* sw-visual 컨트롤 */
 .sw-visual-control {
   position: absolute;
-  left: 12.1%;
-  /* top: 260px; */
+  left: 50%;
+  /* 보이는 영역만 이동 */
+  transform: translateX(-50%);
   top: calc(50% - 230px);
   display: flex;
+  width: 100%;
+  max-width: 1420px;
   z-index: 9;
 }
 
@@ -366,7 +392,10 @@ body {
 .sw-visual-pg {
   position: absolute;
   left: 50%;
-  top: 50%;
+  transform: translateX(-50%);
+  top: calc(50% + 230px);
+  width: 100%;
+  max-width: 1420px;
   z-index: 9;
 }
 
@@ -390,7 +419,7 @@ body {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 3px;
+  height: 2px;
   background-color: #fff;
   opacity: 0.4;
 }
@@ -401,11 +430,11 @@ body {
   left: 0;
   bottom: 0;
   width: 0;
-  height: 3px;
+  height: 2px;
   background-color: #fff;
-  transition: width 1s;
 }
 .sw-visual-pg-list > li.active::after {
+  transition: width 1.5s;
   width: 100% !important;
 }
 
@@ -413,6 +442,79 @@ body {
 .service {
   position: relative;
   display: block;
+  height: 100vh;
+  padding: 180px 0 210px;
+}
+.service .inner {
+  height: 100%;
+}
+.service-title {
+  font-family: "Godo", "notokr";
+  margin-bottom: 30px;
+  font-size: 38px;
+  text-align: center;
+}
+.service-title span {
+  color: #3a68b2;
+}
+
+.service-wrap {
+  display: grid;
+}
+.service-box-1 {
+  display: block;
+  width: 650px;
+  height: 650px;
+  overflow: hidden;
+}
+.service-box-1:hover a {
+  transform: rotate(2deg) scale(1.1);
+  opacity: 0.9;
+}
+.service-box-1 a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url("../images/main_service_img1.jpg") no-repeat center;
+  background-size: cover;
+  transition: all 0.5s;
+}
+.service-box-2 {
+  width: 650px;
+  height: 325px;
+  overflow: hidden;
+}
+.service-box-2:hover a {
+  transform: rotate(2deg) scale(1.1);
+  opacity: 0.9;
+}
+.service-box-2 a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url("../images/main_service_img2.jpg") no-repeat center;
+  background-size: cover;
+  transition: all 0.5s;
+}
+
+.service-box-3 {
+  width: 650px;
+  height: 325px;
+  overflow: hidden;
+}
+
+.service-box-3:hover a {
+  transform: rotate(2deg) scale(1.1);
+  opacity: 0.9;
+}
+
+.service-box-3 a {
+  display: block;
+  width: 650px;
+  height: 325px;
+  background: url("../images/main_service_img3.jpg") no-repeat center;
+  background-size: cover;
+  transition: all 0.5s;
 }
 
 /* 소개  */
