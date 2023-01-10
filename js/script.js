@@ -100,13 +100,13 @@ window.onload = function () {
   ).length;
   // 2. li 태그 출력 장소(UL 태그)저장
   const swSlidePgUl = document.querySelector(".sw-visual-pg-list");
-  //  3. Li 에 html 을 글자를 생성한다. 
+  //  3. Li 에 html 을 글자를 생성한다.
   let swVisualHtml = ``;
   for (let i = 0; i < swSlideCount; i++) {
     swVisualHtml = swVisualHtml + `<li>${i + 1}</li>`;
   }
 
-  // 4. html 을 추가해준다. 
+  // 4. html 을 추가해준다.
   swSlidePgUl.innerHTML = swVisualHtml;
 
   // 5. 페이지네이션 관련(코딩으로 생성한 li태그 저장)
@@ -136,11 +136,11 @@ window.onload = function () {
 
   // Swiper 가 최초 실행될 때
   // 1 번 li의 흰색 라인이 늘어나는 모션을 실행
-  
+
   swViusalPgLi[0].classList.add("active");
 
   // Swiper 가 바뀔 때 마다 실행
-  // 슬라이더가 바뀌는 상태를 찾아서 
+  // 슬라이더가 바뀌는 상태를 찾아서
   // 우리가 적용하고자 하는 처리를 하고자
   //  swiper 의 API를 참조해서 작성
   swiper.on("slideChange", function () {
@@ -174,5 +174,25 @@ window.onload = function () {
       // slideToLoop(index, speed, runCallbacks)
       swiper.slideToLoop(index, 500, false);
     });
+  });
+
+  // business slide
+  const swBusiness = new Swiper(".sw-business", {
+    slidePerView: 1,
+    spaceBetween: 0,
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+      },
+      1024: {
+        slidesPerView: 3,
+      },
+    },
+  });
+
+  // business-modal 기능
+  const businessModal = document.querySelector(".business-modal");
+  businessModal.addEventListener("click", function () {
+    businessModal.style.display = "none";
   });
 };
