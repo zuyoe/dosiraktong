@@ -1,4 +1,17 @@
 window.onload = function () {
+  // 모달창 기능
+  let modalWrap = document.querySelector(".modal-wrap");
+  let modalClose = document.querySelector(".modal-close");
+  modalClose.addEventListener("click", function () {
+    modalWrap.classList.add("fadeOut");
+    modalWrap.addEventListener("animationend", () => {
+      modalWrap.style.display = "none";
+    });
+  });
+
+  // AOS 셋팅
+  AOS.init();
+
   // 상단 스크롤 기능
   const header = document.querySelector(".header");
   const mbt = document.querySelector(".mbt");
@@ -98,18 +111,20 @@ window.onload = function () {
   const swSlideCount = document.querySelectorAll(
     ".sw-visual .swiper-slide"
   ).length;
-  // 2. li 태그 출력 장소(UL 태그)저장
+
+  // 2. li 태그 출력 장소(UL 태그) 저장
   const swSlidePgUl = document.querySelector(".sw-visual-pg-list");
-  //  3. Li 에 html 을 글자를 생성한다.
+
+  // 3. li 에 html 로 작성할 글자를 생성한다.
   let swVisualHtml = ``;
   for (let i = 0; i < swSlideCount; i++) {
     swVisualHtml = swVisualHtml + `<li>${i + 1}</li>`;
   }
 
-  // 4. html 을 추가해준다.
+  // 4. html 을 추가해 준다.
   swSlidePgUl.innerHTML = swVisualHtml;
 
-  // 5. 페이지네이션 관련(코딩으로 생성한 li태그 저장)
+  // 5. 페이지네이션 관련 (코딩으로 생성한 li 태그 저장)
   const swViusalPgLi = document.querySelectorAll(".sw-visual-pg-list > li");
 
   // console.log(swViusalPgLi);
@@ -119,13 +134,13 @@ window.onload = function () {
     //   crossFade: true,
     // },
     loop: true,
-    // 슬라이드의 모션 속도를 trasition 맞춘다.
-    speed: 1000,
+    // 슬라이드의 모션 속도를 transition 맞춘다.
+    speed: 1500,
     autoplay: {
       delay: 2500,
       // 사용자가 마우스 클릭 드래그로 이동하면
-      //  아래 구문이 없으면 autoplay 가 해제되므로
-      //  이 것을 방지해 주기위한 처리
+      // 아래 구문이 없으면 autoplya 가 해제되므로
+      // 이것을 방지해 주기위한 처리
       disableOnInteraction: false,
     },
     navigation: {
@@ -135,14 +150,13 @@ window.onload = function () {
   });
 
   // Swiper 가 최초 실행될 때
-  // 1 번 li의 흰색 라인이 늘어나는 모션을 실행
-
+  // 1 번 li 의 흰색 라인이 늘어나는 모션을 실행
   swViusalPgLi[0].classList.add("active");
 
   // Swiper 가 바뀔 때 마다 실행
   // 슬라이더가 바뀌는 상태를 찾아서
-  // 우리가 적용하고자 하는 처리를 하고자
-  //  swiper 의 API를 참조해서 작성
+  // 우리가 적용하고자 하는 처리를 하고자.
+  // Swiper 의  API 를 참조 해서 작성
   swiper.on("slideChange", function () {
     // realIndex   는 진짜 html 태그의 순서값
     // activeIndex 는 모션이 되는 요소의 순서값
@@ -154,8 +168,8 @@ window.onload = function () {
     //       realIndex 와 activeIndex 는 개수가 같다.
 
     // console.log("slide changed", swiper.realIndex, swiper.activeIndex);
-    // Li 태그를 모두 초기화 한다
-    // 현재 모션이 일어나는 슬라이드 번호 (realIndex) 클래스 적용
+    // LI 태그를 모두 초기화 한다.
+    // 현재 모션이 일어나는 슬라이드 번호(realIndex) 클래스 적용
     swViusalPgLi.forEach((item, index) => {
       if (swiper.realIndex === index) {
         // 같은 순서는 모션을 하라
@@ -178,7 +192,7 @@ window.onload = function () {
 
   // business slide
   const swBusiness = new Swiper(".sw-business", {
-    slidePerView: 1,
+    slidesPerView: 1,
     spaceBetween: 0,
     breakpoints: {
       640: {
@@ -194,5 +208,41 @@ window.onload = function () {
   const businessModal = document.querySelector(".business-modal");
   businessModal.addEventListener("click", function () {
     businessModal.style.display = "none";
+  });
+
+  // 위로가기 스크롤바 구현
+  const gotop = document.querySelector(".gotop");
+  gotop.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
+  // footer 의 상단 위치 픽셀값 파악.
+  let waypoint_footer = new Waypoint({
+    element: document.querySelector(".footer"),
+    handler: function (direction) {
+      // console.log(direction);
+      if (direction === "down") {
+        gotop.classList.add("active-footer");
+      } else {
+        gotop.classList.remove("active-footer");
+      }
+    },
+    offset: "95%",
+  });
+
+  let waypoint_service = new Waypoint({
+    element: document.querySelector(".service"),
+    handler: function (direction) {
+      // console.log(direction);
+      if (direction === "down") {
+        gotop.classList.add("active");
+      } else {
+        gotop.classList.remove("active");
+      }
+    },
+    offset: "80%",
   });
 };
